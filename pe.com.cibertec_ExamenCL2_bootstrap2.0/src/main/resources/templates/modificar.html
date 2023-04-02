@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
+
+    <head th:replace="layout/plantilla :: head">
+        
+     </head>
+                <body style="margin:20px">
+                    
+                    <header th:replace="layout/plantilla :: header"></header>
+                 
+                    <a th:href="@{/}"  >[[#{accion.regresar}]]</a>
+                    <br/>
+                    <form th:action="@{/guardar}" method="post"  th:object="${producto}" >
+                        <input type="hidden" name="id_producto" th:field="*{id_producto}" />
+                        <div class="container">
+                            <br/>
+                            <label class="col-3" for="descripcion"  > [[#{producto.descripcion}]]:</label>
+                            <input class="col-3" type="text" name="descripcion" th:field="*{descripcion}"            />
+                            <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error Descripcion</span>
+
+                            <br/>
+                            <label class="col-3" for="unidad"  > [[#{producto.unidad}]]:</label>
+                            <input class="col-3" type="text" name="unidad" th:field="*{unidad}"            />
+                            <span th:if="${#fields.hasErrors('unidad')}" th:errors="*{unidad}">Error Unidad</span>
+
+                            <br/>
+                            <label class="col-3" for="precio"  > [[#{producto.precio}]]:</label>
+                            <input class="col-3" type="text" name="precio" th:field="*{precio}"            />
+                            <span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">Error precio</span>
+
+                            <br/>
+                            <input  type="submit" name="guardar" th:value="#{accion.guardar}" class="btn btn-primary"  />
+
+                        </div>
+
+
+
+
+                    </form>
+
+                    <footer th:replace="layout/plantilla :: footer"></footer>
+                </body>
+                </html>

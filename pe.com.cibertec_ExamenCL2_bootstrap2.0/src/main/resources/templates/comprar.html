@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
+
+    <head th:replace="layout/plantilla :: head">
+    </head>
+    
+               <body style="margin:20px">
+                   <header th:replace="layout/plantilla :: header"></header>
+                   
+                    <h2 th:text="#{accion.comprar}">TItulo</h2>
+               
+                    <a th:href="@{/}"  >[[#{accion.regresar}]]</a>
+                    
+                    <br/>
+                    <form th:action="@{/guardarCompra}" method="post"  th:object="${compra}" > 
+                        <input type="hidden" name="id_producto" th:field="*{id_producto}" />
+                        <div class="container">
+                            <div>
+                            <label class="col-3" for="descripcion"  > [[#{producto.descripcion}]]:</label>
+                            <input class="col-3" type="text" readonly="reanonly" name="descripcion" th:field="*{descripcion}"            />
+                           
+                            <br/>
+                            <label class="col-3" for="unidad"  > [[#{producto.unidad}]]:</label>
+                            <input class="col-3" type="text" readOnly="reanOnly" name="unidad" th:field="*{unidad}"            />
+                          
+                            <br/>
+                            <label class="col-3" for="precio"  > [[#{producto.precio}]]:</label>
+                            <input class="col-3" type="text" readOnly="reanOnly" name="precio" th:field="*{precio}"            />
+                           
+                            <br/>
+                            <input  type="submit" name="Comprar" th:value="#{accion.comprar}" class="btn btn-primary"  />
+
+                        </div>
+
+                        </div>
+
+
+                    </form>
+
+                        
+                    <footer th:replace="layout/plantilla :: footer"></footer>
+                </body>
+                </html>

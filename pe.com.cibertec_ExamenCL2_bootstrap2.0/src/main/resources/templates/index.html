@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"   
+    >
+     
+    <head th:replace="layout/plantilla :: head" >
+        
+       
+    </head>
+    <body  style="margin: 20px">
+        
+        <header th:replace="layout/plantilla :: header"></header>
+        
+        <h2>[[#{producto.formulario}]]</h2>
+            
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}" th:text="#{producto.crear}">[[#{accion.agregar}]]</a> |  
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/listarCompras}" th:text="#{accion.listar-compras}">[[#{accion.listar-compras}]]</a>
+        
+        
+        <br/> 
+        <br/>
+
+         <div th:if="${productos != null and  !productos.empty}">
+             <table border="2" align="Center" width="98%" margin="2px" class="table table-striped">
+                 <tr>
+                     <th th:text="#{producto.descripcion}">Descripcion</th>
+                     <th th:text="#{producto.unidad}">Unidad</th>
+                     <th th:text="#{producto.precio}">Precio</th>
+
+                     <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
+                     <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
+                      <th>[[#{accion.comprar}]]</th> 
+                 </tr>
+                 
+                 <tr th:each="producto : ${productos}">
+                    <td  th:text="${producto.descripcion}"      > Mostrar descripcion  </td>
+                    <td  th:text="${producto.unidad}" > Mostrar unidad  </td>
+                    <td  th:text="${producto.precio}" > Mostrar precio  </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar/}+${producto.id_producto}" th:text="#{accion.editar}"/></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')"><a  th:href="@{/eliminar/}+${producto.id_producto}" th:text="#{accion.eliminar}"/></td>
+                    <td><a th:href="@{/comprar/}+${producto.id_producto}" th:text="#{accion.comprar}"/></td>
+                 </tr>
+                 
+             </table>
+                 
+         </div>
+         <div th:if="${productos == null or productos.empty }">
+         [[#{productos.lista-vacia}]]
+         </div>
+    
+         
+         <footer th:replace="layout/plantilla :: footer"></footer>
+
+        
+</body>
+    
+</html>

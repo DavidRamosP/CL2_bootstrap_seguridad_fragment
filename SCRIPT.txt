@@ -1,0 +1,63 @@
+CREATE SCHEMA `test20233`;
+
+USE `test20233`;
+
+
+
+CREATE TABLE `test20233`.`producto` (
+  `id_producto` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NULL DEFAULT NULL,
+  `unidad` VARCHAR(5) NULL DEFAULT NULL,
+  `precio` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id_producto`));
+
+
+
+CREATE TABLE `test20233`.`usuario` (
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NULL DEFAULT NULL,
+  `password` VARCHAR(128) NULL DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`));
+
+CREATE TABLE `test20233`.`rol` (
+  `id_rol` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `id_usuario` INT NULL,
+  PRIMARY KEY (`id_rol`),
+  INDEX `id_rol_usuario_idx` (`id_usuario` ASC) VISIBLE,
+  CONSTRAINT `id_rol_usuario`
+    FOREIGN KEY (`id_usuario`)
+    REFERENCES `test20233`.`usuario` (`id_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+INSERT INTO `test20233`.`producto` (`descripcion`, `unidad`, `precio`) VALUES ('Arroz', 'Kg', '4.30');
+INSERT INTO `test20233`.`producto` (`descripcion`, `unidad`, `precio`) VALUES ('Aceite', 'Lts', '9.5');
+INSERT INTO `test20233`.`producto` (`descripcion`, `unidad`, `precio`) VALUES ('Azucar', 'Kg', '3.2');
+
+
+INSERT INTO `test20233`.`usuario` (`username`, `password`) VALUES ('admin', '123');
+INSERT INTO `test20233`.`usuario` (`username`, `password`) VALUES ('user', '123');
+
+
+INSERT INTO `test20233`.`rol` (`nombre`, `id_usuario`) VALUES ('ROLE_ADMIN', '1');
+INSERT INTO `test20233`.`rol` (`nombre`, `id_usuario`) VALUES ('ROLE_USER', '1');
+INSERT INTO `test20233`.`rol` (`nombre`, `id_usuario`) VALUES ('ROLE_USER', 
+
+
+UPDATE `test20233`.`usuario` SET `password` = '$2a$10$hF4cvgp7mCA56qFzz7hwGelvOQgCahQvFYlGdFHL.AyZCX/zfOwPq' WHERE (`id_usuario` = '1');
+UPDATE `test20233`.`usuario` SET `password` = '$2a$10$hF4cvgp7mCA56qFzz7hwGelvOQgCahQvFYlGdFHL.AyZCX/zfOwPq' WHERE (`id_usuario` = '2');
+
+
+
+CREATE TABLE `test20233`.`compras` (
+  `id_compra` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NULL DEFAULT NULL,
+  `unidad` VARCHAR(5) NULL DEFAULT NULL,
+  `precio` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id_compra`));
+
+
+INSERT INTO `test20233`.`compras` (`descripcion`, `unidad`, `precio`) VALUES ('Atun', '170gr', '5.6');
+

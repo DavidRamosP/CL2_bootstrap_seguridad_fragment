@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"   
+    >
+     
+    <head th:replace="layout/plantilla :: head" >
+        <title>Inicio</title>
+       
+    </head>
+    <body  style="margin: 20px">
+        
+        <header th:replace="layout/plantilla :: header"></header>
+        <h2>[[#{compras.formulario}]]</h2>
+           
+        <br/> 
+          <a th:href="@{/}"  >[[#{accion.regresar}]]</a>
+        <br/> 
+        <br/>
+
+         <div th:if="${compras != null and  !compras.empty}">
+             <table border="2" align="Center" width="98%" margin="2px" class="table table-striped">
+                 <tr>
+                     <th th:text="#{producto.descripcion}">Descripcion</th>
+                     <th th:text="#{producto.unidad}">Unidad</th>
+                     <th th:text="#{producto.precio}">Precio</th>
+
+                   
+                 </tr>
+                 
+                 <tr th:each="compra: ${compras}">
+                    <td  th:text="${compra.descripcion}"      > Mostrar descripcion  </td>
+                    <td  th:text="${compra.unidad}" > Mostrar unidad  </td>
+                    <td  th:text="${compra.precio}" > Mostrar precio  </td>
+                  
+                 </tr>
+                 
+             </table>
+                 
+         </div>
+         <div th:if="${compras == null or compras.empty }">
+         [[#{productos.lista-vacia}]]
+         </div>
+    
+         
+         <footer th:replace="layout/plantilla :: footer"></footer>
+
+        
+</body>
+    
+</html>
